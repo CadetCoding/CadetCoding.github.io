@@ -1,0 +1,105 @@
+:root {
+    --nasa-green: #00ff41;
+    --nasa-blue: #00d4ff;
+    --error-red: #ff3e3e;
+    --dark-bg: #0a0a0b;
+    --terminal-grey: #1a1a1c;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--nasa-green);
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.terminal-container {
+    width: 95%;
+    max-width: 1000px;
+    border: 2px solid var(--nasa-green);
+    padding: 25px;
+    background: rgba(0, 255, 65, 0.02);
+    box-shadow: inset 0 0 20px rgba(0, 255, 65, 0.05), 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--nasa-green);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.ascii-art {
+    font-size: 8px;
+    line-height: 8px;
+    margin-bottom: 20px;
+    color: var(--nasa-blue);
+}
+
+.big-btn {
+    background: var(--nasa-green);
+    color: var(--dark-bg);
+    border: none;
+    padding: 15px 30px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin: 15px 0;
+    transition: transform 0.1s;
+}
+
+.big-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--nasa-green);
+}
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.module {
+    border: 1px solid var(--nasa-green);
+    padding: 15px;
+    cursor: pointer;
+    background: var(--terminal-grey);
+}
+
+.module:hover:not(.locked) {
+    background: rgba(0, 212, 255, 0.1);
+    border-color: var(--nasa-blue);
+}
+
+.locked {
+    border-color: #333;
+    color: #555;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.nav-btn {
+    background: transparent;
+    border: 1px solid var(--nasa-green);
+    color: var(--nasa-green);
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.nav-btn.red {
+    border-color: var(--error-red);
+    color: var(--error-red);
+}
+
+.divider {
+    color: var(--nasa-blue);
+    margin: 20px 0;
+    font-size: 0.8rem;
+}
