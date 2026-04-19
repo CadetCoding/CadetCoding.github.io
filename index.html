@@ -3,16 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚀 CADETCODE.ORG | Python Mission</title>
+    <title>🚀 CADETCODE.ORG | Mission Control</title>
     <link rel="stylesheet" href="assets/styles/style.css">
 </head>
 <body>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <span class="nav-label">SELECT SECTOR:</span>
+            <button class="lang-btn active" onclick="location.href='index.html'">[ PYTHON ]</button>
+            <button class="lang-btn" onclick="alert('JavaScript Sector Coming Soon...')">[ JAVASCRIPT ]</button>
+            <button class="lang-btn" onclick="alert('C++ Robotics Sector Locked.')">[ C++ ]</button>
+        </div>
+    </nav>
+
     <div class="terminal-container">
         <header>
             <span class="logo">[🚀 CADETCODE.ORG ]</span>
             <div class="header-actions">
                 <span id="save-status">SYSTEMS ONLINE</span>
-                <button id="save-btn" class="nav-btn">[ SAVE PROGRESS 💾 ]</button>
+                <button id="save-btn" class="nav-btn" onclick="saveProgress()">[ SAVE PROGRESS 💾 ]</button>
             </div>
         </header>
 
@@ -42,28 +51,28 @@
                 <div class="module unlocked" data-lvl="1" onclick="navigateToLevel(1)">
                     <h3>[ LEVEL 1 ]</h3>
                     <p>The Megaphone</p>
-                    <small>(Output)</small>
+                    <small>(Output / Print)</small>
                     <div class="status-box">Status: <span id="s1">[NEW]</span></div>
                 </div>
 
                 <div class="module locked" data-lvl="2" id="lvl2" onclick="navigateToLevel(2)">
                     <h3>[ LEVEL 2 ]</h3>
-                    <p>The Calculator</p>
-                    <small>(Math)</small>
+                    <p>The Joiner</p>
+                    <small>(Concatenation)</small>
                     <div class="status-box">Status: [LOCKED]</div>
                 </div>
 
-                <div class="module locked" data-lvl="3" id="lvl3">
+                <div class="module locked" data-lvl="3" id="lvl3" onclick="navigateToLevel(3)">
                     <h3>[ LEVEL 3 ]</h3>
+                    <p>The Calculator</p>
+                    <small>(Math Sector)</small>
+                    <div class="status-box">Status: [LOCKED]</div>
+                </div>
+
+                <div class="module locked" data-lvl="4" id="lvl4" onclick="navigateToLevel(4)">
+                    <h3>[ LEVEL 4 ]</h3>
                     <p>The Label Maker</p>
                     <small>(Variables)</small>
-                    <div class="status-box">Status: [LOCKED]</div>
-                </div>
-
-                <div class="module locked" data-lvl="4" id="lvl4">
-                    <h3>[ LEVEL 4 ]</h3>
-                    <p>The Loop</p>
-                    <small>(Repetition)</small>
                     <div class="status-box">Status: [LOCKED]</div>
                 </div>
             </div>
