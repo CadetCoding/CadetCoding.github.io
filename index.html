@@ -3,231 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CADETCODE.ORG | Mission Control</title>
-    <style>
-        /* --- NASA TERMINAL STYLES --- */
-        body {
-            background-color: #0a0a0a;
-            color: #00ff41;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .terminal-container {
-            border: 2px solid #00ff41;
-            width: 95%;
-            max-width: 900px;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
-            background: #000;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 2px solid #00ff41;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .welcome-section {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .main-action-btn {
-            background: transparent;
-            border: 2px solid #00ff41;
-            color: #00ff41;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .main-action-btn:hover {
-            background: #00ff41;
-            color: #000;
-            box-shadow: 0 0 15px #00ff41;
-        }
-
-        .divider {
-            text-align: center;
-            margin: 30px 0;
-            letter-spacing: 2px;
-        }
-
-        /* --- MODULE GRID --- */
-        .module-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .module {
-            border: 1px solid #00ff41;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .module:hover:not(.locked) {
-            background: rgba(0, 255, 65, 0.1);
-        }
-
-        .locked {
-            border-color: #333;
-            color: #444;
-            cursor: not-allowed;
-        }
-
-        .status-tag {
-            font-size: 0.8rem;
-            display: block;
-            margin-top: 10px;
-        }
-
-        footer {
-            margin-top: 30px;
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .nav-btn {
-            background: none;
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 0.7rem;
-        }
-
-        /* Hover Tooltip for Module Details */
-        .module:hover .tooltip {
-            display: block;
-        }
-
-        .tooltip {
-            display: none;
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #00ff41;
-            color: #000;
-            padding: 5px;
-            width: 150px;
-            font-size: 0.7rem;
-            z-index: 10;
-        }
-    </style>
+    <title>🚀 CADETCODE.ORG | Python Mission</title>
+    <link rel="stylesheet" href="assets/styles/style.css">
 </head>
 <body>
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[🚀 CADETCODE.ORG ]</span>
+            <div class="header-actions">
+                <span id="save-status">SYSTEMS ONLINE</span>
+                <button id="save-btn" class="nav-btn">[ SAVE PROGRESS 💾 ]</button>
+            </div>
+        </header>
 
-<div class="terminal-container">
-    <header>
-        <span>🚀 CADETCODE.ORG</span>
-        <button class="nav-btn" onclick="manualSave()">[ SAVE PROGRESS 💾 ]</button>
-    </header>
+        <main class="ascii-board">
+            <div class="mission-header">
+                <pre class="ascii-art">
+   _____          _____  ______ _______ 
+  / ____|   /\   |  __ \|  ____|__   __|
+ | |       /  \  | |  | | |__     | |   
+ | |      / /\ \ | |  | |  __|    | |   
+ | |____ / ____ \| |__| | |____   | |   
+  \_____/_/    \_\_____/|______|  |_|   
+                </pre>
+                <h1>WELCOME, CADET! YOUR MISSION TO MARS STARTS HERE.</h1>
+            </div>
 
-    <div class="welcome-section">
-        <p>WELCOME, CADET! YOUR MISSION TO MARS STARTS HERE.</p>
-        <button class="main-action-btn" id="continue-mission" onclick="continueMission()">
-            [ CONTINUE MISSION ]
-        </button>
-        <p style="font-size: 0.7rem;" id="last-saved-text">STATUS: No local data found.</p>
-    </div>
+            <div class="action-zone">
+                <button id="continue-mission" class="big-btn">
+                    [ CONTINUE MISSION ]
+                </button>
+                <p id="last-saved-text">No mission logs found. Start Level 1!</p>
+            </div>
 
-    <div class="divider">--- SELECT A TRAINING MODULE ---</div>
+            <div class="divider">------------------------- SELECT A TRAINING MODULE -------------------------</div>
 
-    <div class="module-grid">
-        <div class="module" id="lvl1" onclick="goToLevel(1)">
-            <div class="tooltip">Topic: print() <br>How to output status to Earth.</div>
-            <h3>LEVEL 1</h3>
-            <p>The Megaphone</p>
-            <span class="status-tag" id="stat1">[ NEW ]</span>
-        </div>
+            <div class="module-grid" id="module-grid">
+                <div class="module unlocked" data-lvl="1" onclick="navigateToLevel(1)">
+                    <h3>[ LEVEL 1 ]</h3>
+                    <p>The Megaphone</p>
+                    <small>(Output)</small>
+                    <div class="status-box">Status: <span id="s1">[NEW]</span></div>
+                </div>
 
-        <div class="module locked" id="lvl2" onclick="goToLevel(2)">
-            <div class="tooltip">Topic: Math <br>Fuel & Trajectory calculations.</div>
-            <h3>LEVEL 2</h3>
-            <p>The Calculator</p>
-            <span class="status-tag" id="stat2">[ LOCKED ]</span>
-        </div>
+                <div class="module locked" data-lvl="2" id="lvl2" onclick="navigateToLevel(2)">
+                    <h3>[ LEVEL 2 ]</h3>
+                    <p>The Calculator</p>
+                    <small>(Math)</small>
+                    <div class="status-box">Status: [LOCKED]</div>
+                </div>
 
-        <div class="module locked" id="lvl3" onclick="goToLevel(3)">
-            <div class="tooltip">Topic: Variables <br>Storing sensor data in boxes.</div>
-            <h3>LEVEL 3</h3>
-            <p>The Label Maker</p>
-            <span class="status-tag" id="stat3">[ LOCKED ]</span>
-        </div>
+                <div class="module locked" data-lvl="3" id="lvl3">
+                    <h3>[ LEVEL 3 ]</h3>
+                    <p>The Label Maker</p>
+                    <small>(Variables)</small>
+                    <div class="status-box">Status: [LOCKED]</div>
+                </div>
 
-        <div class="module locked" id="lvl4" onclick="goToLevel(4)">
-            <div class="tooltip">Topic: Loops <br>Repeating scans for life.</div>
-            <h3>LEVEL 4</h3>
-            <p>The Loop</p>
-            <span class="status-tag" id="stat4">[ LOCKED ]</span>
-        </div>
-    </div>
+                <div class="module locked" data-lvl="4" id="lvl4">
+                    <h3>[ LEVEL 4 ]</h3>
+                    <p>The Loop</p>
+                    <small>(Repetition)</small>
+                    <div class="status-box">Status: [LOCKED]</div>
+                </div>
+            </div>
 
-    <div class="divider">------------------------------------------------</div>
-
-    <footer>
-        <button class="nav-btn">[ RECRUIT MANUAL ]</button>
-        <button class="nav-btn">[ ROBOTICS HUB ]</button>
-        <button class="nav-btn">[ NASA GALLERY ]</button>
-        <button class="nav-btn" onclick="resetSystem()">[ RESET DATA ]</button>
-    </footer>
-</div>
-
-<script>
-    // --- MISSION LOGIC (Local Storage) ---
-
-    // 1. Initial Data Load
-    let cadetData = JSON.parse(localStorage.getItem('cadetData')) || {
-        lastLevel: 1,
-        completed: []
-    };
-
-    function updateDashboard() {
-        const lastSavedText = document.getElementById('last-saved-text');
-        
-        if (cadetData.completed.length > 0) {
-            lastSavedText.innerText = "STATUS: Last active in Level " + cadetData.lastLevel;
-        }
-
-        // Unlock logic
-        for (let i = 1; i <= 4; i++) {
-            let mod = document.getElementById('lvl' + i);
-            let stat = document.getElementById('stat' + i);
+            <div class="divider">----------------------------------------------------------------------------</div>
             
-            if (cadetData.completed.includes(i)) {
-                stat.innerText = "[ COMPLETED ]";
-                // Unlock next level
-                let nextMod = document.getElementById('lvl' + (i + 1));
-                if (nextMod) nextMod.classList.remove('locked');
-            } else if (i === cadetData.lastLevel) {
-                stat.innerText = "[ IN PROGRESS ]";
-                mod.classList.remove('locked');
-            }
-        }
-    }
+            <nav class="footer-nav">
+                <button class="nav-btn">[ RECRUIT MANUAL ]</button>
+                <button class="nav-btn">[ ROBOTICS HUB ]</button>
+                <button class="nav-btn">[ NASA GALLERY ]</button>
+                <button class="nav-btn red" onclick="resetProgress()">[ RESET DATA ]</button>
+            </nav>
+        </main>
+    </div>
 
-    function goToLevel(num) {
-        let mod = document.getElementById('lvl' + num);
-        if (mod.classList.contains('locked')) {
-            alert("🛑 ACCESS DENIED: Complete previous missions first.");
-            return;
-        }
-        // Save as last level before leaving
-        cadetData.lastLevel = num;
-        localStorage.setItem('cadetData', JSON.stringify(cadetData));
+    <script src="assets/scripts/main.js"></script>
+</body>
+</html>
