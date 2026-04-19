@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 01: The Megaphone | CadetCode</title>
+    <link rel="stylesheet" href="../../../assets/styles/style.css">
+    <style>
+        .editor-wrapper {
+            position: relative;
+            background: #050505;
+            border: 2px solid var(--nasa-green);
+            border-radius: 4px;
+            height: 120px;
+            margin: 20px 0;
+            padding: 15px;
+        }
+        #ghost-code-layer {
+            position: absolute;
+            top: 15px; left: 15px;
+            color: #2a2a2a;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            white-space: pre;
+            pointer-events: none;
+        }
+        #code-input {
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 95%; height: 80%;
+            background: transparent;
+            border: none;
+            color: var(--nasa-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            outline: none;
+            resize: none;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body data-level="1">
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[ 🛰️ PYTHON MODULE: 01 ]</span>
+            <button class="nav-btn" onclick="location.href='../../../index.html'">[ ABORT TO MENU ]</button>
+        </header>
+
+        <section class="briefing">
+            <h1>THE MEGAPHONE: print()</h1>
+            <p>Your first mission is to establish a communication link. To talk to Earth from Mars, you use the <strong>print()</strong> function.</p>
+            
+            <div class="tip-box" style="border-left: 4px solid var(--nasa-blue); padding: 10px; background: #111;">
+                <strong>🥪 THE QUOTE SANDWICH:</strong><br>
+                Words need quotes <code>" "</code> like a sandwich needs bread. No bread = No message!
+            </div>
+        </section>
+
+        <section class="code-bay">
+            <div class="blueprint">
+                <span>BLUEPRINT:</span> <code>print("Hello Mars")</code>
+                <button class="nav-btn" onclick="copyBlueprint('print(\&quot;Hello Mars\&quot;)')">[ COPY ]</button>
+            </div>
+
+            <div class="editor-wrapper">
+                <div id="ghost-code-layer">print("Hello Mars")</div>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode('Hello Mars');}"></textarea>
+            </div>
+
+            <button class="big-btn" onclick="runMissionCode('Hello Mars')">LAUNCH SIGNAL 🚀</button>
+        </section>
+
+        <section class="telemetry">
+            <div id="telemetry-output">Awaiting Cadet input...</div>
+        </section>
+
+        <button id="next-btn" class="big-btn" style="display:none;" onclick="location.href='level02.html'">
+            PROCEED TO MISSION 02 ⏭️
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="../../../assets/scripts/main.js"></script>
+    <script src="../../../assets/scripts/engine.js"></script>
+</body>
+</html>
