@@ -12,8 +12,7 @@
             border: 2px solid var(--nasa-green);
             border-radius: 4px;
             height: 120px;
-            margin: 20px 0;
-            padding: 15px;
+            margin: 20px 0; padding: 15px;
         }
         #ghost-code-layer {
             position: absolute;
@@ -39,7 +38,7 @@
         }
     </style>
 </head>
-<body data-level="1">
+<body data-level="1" data-expected="Hello Mars">
     <div class="terminal-container">
         <header>
             <span class="logo">[ 🛰️ PYTHON MODULE: 01 ]</span>
@@ -64,10 +63,10 @@
 
             <div class="editor-wrapper">
                 <div id="ghost-code-layer">print("Hello Mars")</div>
-                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode('Hello Mars');}"></textarea>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode();}"></textarea>
             </div>
 
-            <button class="big-btn" onclick="runMissionCode('Hello Mars')">LAUNCH SIGNAL 🚀</button>
+            <button class="big-btn" onclick="runMissionCode()">LAUNCH SIGNAL 🚀</button>
         </section>
 
         <section class="telemetry">
