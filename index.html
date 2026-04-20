@@ -6,14 +6,46 @@
     <title>🚀 CADETCODE.ORG | Coding so easy a 5 year old could do it.</title>
     <link rel="stylesheet" href="assets/styles/style.css">
     <meta name="google-site-verification" content="IGZaQUzaKQHBrBpddYK1ftXCV9OrEnBuPkzunU3aeVU" />
+    
+    <style>
+        /* 🟢 NEW: SCROLLABLE SECTOR NAV STYLES */
+        .sector-nav {
+            background: #0a0a0a;
+            border-bottom: 2px solid #222;
+            padding: 10px 0;
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            -webkit-overflow-scrolling: touch;
+        }
+        .sector-nav::-webkit-scrollbar { height: 4px; }
+        .sector-nav::-webkit-scrollbar-thumb { background: var(--nasa-blue); border-radius: 10px; }
+        
+        .nav-container {
+            display: flex;
+            gap: 12px;
+            padding: 0 20px;
+            align-items: center;
+        }
+        .nav-label {
+            color: var(--nasa-green);
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <nav class="top-nav">
+    <nav class="sector-nav">
         <div class="nav-container">
             <span class="nav-label">SELECT SECTOR:</span>
-            <button class="lang-btn active" onclick="location.href='index.html'">[ PYTHON ]</button>
-            <button class="lang-btn" onclick="alert('JavaScript Sector Coming Soon...')">[ JAVASCRIPT ]</button>
-            <button class="lang-btn" onclick="alert('C++ Robotics Sector Locked.')">[ C++ ]</button>
+            <button class="lang-btn active" onclick="location.href='index.html'">[ 1. PYTHON ]</button>
+            <button class="lang-btn" onclick="alert('JavaScript Sector Coming Soon...')">[ 2. JAVASCRIPT ]</button>
+            <button class="lang-btn" onclick="alert('C++ Robotics Sector Locked.')">[ 3. C++ ]</button>
+            <button class="lang-btn" onclick="alert('Logic Sector Locked.')">[ 4. LOGIC ]</button>
+            <button class="lang-btn" onclick="alert('AI Sector Locked.')">[ 5. AI ]</button>
         </div>
     </nav>
 
@@ -29,12 +61,12 @@
         <main class="ascii-board">
             <div class="mission-header">
                 <pre class="ascii-art">
-   _____          _____  ______ _______ 
-  / ____|   /\   |  __ \|  ____|__   __|
- | |       /  \  | |  | | |__     | |   
- | |      / /\ \ | |  | |  __|    | |   
- | |____ / ____ \| |__| | |____   | |   
-  \_____/_/    \_\_____/|______|  |_|   
+     _____          _____  ______ _______ 
+    / ____|   /\   |  __ \|  ____|__   __|
+   | |       /  \  | |  | | |__     | |   
+   | |      / /\ \ | |  | |  __|    | |   
+   | |____ / ____ \| |__| | |____   | |   
+    \_____/_/    \_\_____/|______|  |_|   
                 </pre>
                 <h1>WELCOME, CADET! YOUR MISSION TO MARS STARTS HERE.</h1>
             </div>
@@ -46,34 +78,59 @@
                 <p id="last-saved-text">No mission logs found. Start Level 1!</p>
             </div>
 
-            <div class="divider">------------------------- SELECT A TRAINING MODULE -------------------------</div>
-
-            <div class="module-grid" id="module-grid">
+            <div class="divider">------------------------- [ 01: TEXT SECTOR ] -------------------------</div>
+            <div class="module-grid">
                 <div class="module unlocked" data-lvl="1" onclick="navigateToLevel(1)">
-                    <h3>[ LEVEL 1 ]</h3>
+                    <h3>[ LVL 1 ]</h3>
                     <p>The Megaphone</p>
-                    <small>(Output / Print)</small>
-                    <div class="status-box">Status: <span id="s1">[NEW]</span></div>
+                    <div class="status-box">Status: <span id="s1">[READY]</span></div>
                 </div>
 
                 <div class="module locked" data-lvl="2" id="lvl2" onclick="navigateToLevel(2)">
-                    <h3>[ LEVEL 2 ]</h3>
+                    <h3>[ LVL 2 ]</h3>
                     <p>The Joiner</p>
-                    <small>(Concatenation)</small>
                     <div class="status-box">Status: [LOCKED]</div>
                 </div>
 
                 <div class="module locked" data-lvl="3" id="lvl3" onclick="navigateToLevel(3)">
-                    <h3>[ LEVEL 3 ]</h3>
+                    <h3>[ LVL 3 ]</h3>
+                    <p>The Blueprint</p>
+                    <div class="status-box">Status: [LOCKED]</div>
+                </div>
+            </div>
+
+            <div class="divider">------------------------- [ 02: MATH SECTOR ] -------------------------</div>
+            <div class="module-grid">
+                <div class="module locked" data-lvl="4" id="lvl4" onclick="navigateToLevel(4)">
+                    <h3>[ LVL 4 ]</h3>
                     <p>The Calculator</p>
-                    <small>(Math Sector)</small>
                     <div class="status-box">Status: [LOCKED]</div>
                 </div>
 
-                <div class="module locked" data-lvl="4" id="lvl4" onclick="navigateToLevel(4)">
-                    <h3>[ LEVEL 4 ]</h3>
-                    <p>The Label Maker</p>
-                    <small>(Variables)</small>
+                <div class="module locked" data-lvl="5" id="lvl5" onclick="navigateToLevel(5)">
+                    <h3>[ LVL 5 ]</h3>
+                    <p>The Multiplier</p>
+                    <div class="status-box">Status: [LOCKED]</div>
+                </div>
+            </div>
+
+            <div class="divider">------------------------- [ 03: VARIABLE SECTOR ] -------------------------</div>
+            <div class="module-grid">
+                <div class="module locked" data-lvl="6" id="lvl6" onclick="navigateToLevel(6)">
+                    <h3>[ LVL 6 ]</h3>
+                    <p>Storage Box</p>
+                    <div class="status-box">Status: [LOCKED]</div>
+                </div>
+
+                <div class="module locked" data-lvl="7" id="lvl7" onclick="navigateToLevel(7)">
+                    <h3>[ LVL 7 ]</h3>
+                    <p>Fuel Gauge</p>
+                    <div class="status-box">Status: [LOCKED]</div>
+                </div>
+
+                <div class="module locked" data-lvl="8" id="lvl8" onclick="navigateToLevel(8)">
+                    <h3>[ LVL 8 ]</h3>
+                    <p>The Uplink</p>
                     <div class="status-box">Status: [LOCKED]</div>
                 </div>
             </div>
