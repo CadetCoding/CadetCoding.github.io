@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 08: The Uplink | CadetCode</title>
+    <link rel="stylesheet" href="../../../assets/styles/style.css">
+    <style>
+        .editor-wrapper {
+            position: relative;
+            background: #050505;
+            border: 2px solid var(--nasa-green);
+            border-radius: 4px;
+            height: 150px;
+            margin: 20px 0; padding: 15px;
+        }
+        #ghost-code-layer {
+            position: absolute;
+            top: 15px; left: 15px;
+            color: #2a2a2a;
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            white-space: pre;
+            pointer-events: none;
+        }
+        #code-input {
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 95%; height: 85%;
+            background: transparent;
+            border: none;
+            color: var(--nasa-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            outline: none;
+            resize: none;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body data-level="8" data-expected="ACCESS GRANTED">
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[ 🛰️ VARIABLE SECTOR: 08 ]</span>
+            <button class="nav-btn" onclick="location.href='../../../index.html'">[ ABORT ]</button>
+        </header>
+
+        <section class="briefing">
+            <h1>THE UPLINK: input()</h1>
+            <p>To launch the rocket, we need the Pilot's name. We use the <code>input()</code> function to ask a question and wait for an answer.</p>
+            
+            <p>Whatever the Cadet types back gets stored inside our variable box!</p>
+
+            <div class="tip-box" style="border-left: 4px solid var(--nasa-blue); padding: 15px; background: #111;">
+                <strong>📡 HOW IT WORKS:</strong><br>
+                <code>name = input("Who is the Pilot?")</code><br>
+                This stops the program, waits for you to type, and saves your name into the <code>name</code> box.
+            </div>
+        </section>
+
+        <section class="code-bay">
+            <h3>🛠️ PILOT REGISTRATION</h3>
+            <p><strong>MISSION:</strong> Ask for the pilot's name, then print "ACCESS GRANTED".</p>
+            
+            <div class="blueprint">
+                <span>BLUEPRINT:</span><br>
+                <code>pilot = input("Enter Name: ")</code><br>
+                <code>print("ACCESS GRANTED")</code>
+                <button class="nav-btn" onclick="copyBlueprint('pilot = input(\&quot;Enter Name: \&quot;)\nprint(\&quot;ACCESS GRANTED\&quot;)')">[ COPY ]</button>
+            </div>
+
+            <div class="editor-wrapper">
+                <div id="ghost-code-layer">pilot = input("Enter Name: ")
+print("ACCESS GRANTED")</div>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode();}"></textarea>
+            </div>
+
+            <button class="big-btn" onclick="runMissionCode()">START UPLINK 🚀</button>
+        </section>
+
+        <section class="telemetry">
+            <h3>📡 MISSION CONTROL RESPONSE</h3>
+            <div id="telemetry-output">Awaiting Pilot ID...</div>
+        </section>
+
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-green);" onclick="location.href='../../../index.html'">
+            SECTOR COMPLETE: RETURN TO BASE 🏆
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="../../../assets/scripts/main.js"></script>
+    <script src="../../../assets/scripts/engine.js"></script>
+</body>
+</html>
