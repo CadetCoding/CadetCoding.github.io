@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 10: The Backup Plan | CadetCode</title>
+    <link rel="stylesheet" href="../../../assets/styles/style.css">
+    <style>
+        .editor-wrapper {
+            position: relative;
+            background: #050505;
+            border: 2px solid var(--nasa-green);
+            border-radius: 4px;
+            height: 250px; /* Taller for If/Else blocks */
+            margin: 20px 0; padding: 15px;
+        }
+        #ghost-code-layer {
+            position: absolute;
+            top: 15px; left: 15px;
+            color: #2a2a2a;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            white-space: pre;
+            pointer-events: none;
+            line-height: 1.5;
+        }
+        #code-input {
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 95%; height: 90%;
+            background: transparent;
+            border: none;
+            color: var(--nasa-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            outline: none;
+            resize: none;
+            z-index: 2;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body data-level="10" data-expected="WARNING">
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[ 🧠 LOGIC SECTOR: 10 ]</span>
+            <button class="nav-btn" onclick="location.href='../../../index.html'">[ ABORT ]</button>
+        </header>
+
+        <section class="briefing">
+            <h1>THE BACKUP: if / else</h1>
+            <p>What if your "if" statement is False? We use <code>else</code> to tell the computer what to do instead. It's like a Plan B!</p>
+            
+            <div class="tip-box" style="border-left: 4px solid #ff00ff; padding: 15px; background: #111; margin: 20px 0;">
+                <strong>💡 PLAN B RULE:</strong><br>
+                The <code>else:</code> does NOT get a math check. It just catches everything else. <br>
+                Make sure it is lined up perfectly under the <code>if</code>!
+            </div>
+        </section>
+
+        <section class="code-bay">
+            <h3>🛠️ OXYGEN MONITOR</h3>
+            <p><strong>MISSION:</strong> If oxygen is 0, print "WARNING". Otherwise, print "SAFE".</p>
+            
+            <div class="blueprint">
+                <pre>oxygen = 0
+if oxygen == 100:
+    print("SAFE")
+else:
+    print("WARNING")</pre>
+                <button class="nav-btn" onclick="copyBlueprint('oxygen = 0\nif oxygen == 100:\n    print(\&quot;SAFE\&quot;)\nelse:\n    print(\&quot;WARNING\&quot;)')">[ COPY BLUEPRINT ]</button>
+            </div>
+
+            <div class="editor-wrapper">
+                <div id="ghost-code-layer">oxygen = 0
+if oxygen == 100:
+    print("SAFE")
+else:
+    print("WARNING")</div>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()"></textarea>
+            </div>
+
+            <button class="big-btn" id="run-btn" onclick="runLevel10Mission()">CHECK LIFE SUPPORT 💨</button>
+        </section>
+
+        <section class="telemetry">
+            <h3>📡 O2 SENSOR STATUS</h3>
+            <div id="telemetry-output">Scanning atmosphere...</div>
+        </section>
+
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-blue); margin-top: 20px;" onclick="location.href='level11.html'">
+            PROCEED TO LEVEL 11 ⏭️
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="../../../assets/scripts/main.js"></script>
+    <script src="../../../assets/scripts/engine.js"></script>
+    <script src="../../../assets/scripts/defense.js"></script>
+
+    <script>
+        async function runLevel10Mission() {
+            await runMissionCode();
+            const telemetry = document.getElementById('telemetry-output').innerText;
+            const nextBtn = document.getElementById('next-btn');
+            
+            // Check for the WARNING output to trigger success
+            if (telemetry.includes("WARNING")) {
+                nextBtn.style.display = "block";
+                if (typeof missionData !== 'undefined') {
+                    if(!missionData.completedLevels.includes(10)) {
+                        missionData.completedLevels.push(10);
+                    }
+                    saveProgress(); 
+                }
+            }
+        }
+        document.getElementById('run-btn').onclick = runLevel10Mission;
+    </script>
+</body>
+</html>
