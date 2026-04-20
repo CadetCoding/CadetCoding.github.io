@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 09: The Decision Maker | CadetCode</title>
+    <link rel="stylesheet" href="../../../assets/styles/style.css">
+    <style>
+        .editor-wrapper {
+            position: relative;
+            background: #050505;
+            border: 2px solid var(--nasa-green);
+            border-radius: 4px;
+            height: 200px;
+            margin: 20px 0; padding: 15px;
+        }
+        #ghost-code-layer {
+            position: absolute;
+            top: 15px; left: 15px;
+            color: #2a2a2a;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            white-space: pre;
+            pointer-events: none;
+            line-height: 1.5;
+        }
+        #code-input {
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 95%; height: 90%;
+            background: transparent;
+            border: none;
+            color: var(--nasa-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            outline: none;
+            resize: none;
+            z-index: 2;
+            line-height: 1.5;
+        }
+        .logic-gate {
+            color: #ff00ff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body data-level="9" data-expected="TOUCHDOWN">
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[ 🧠 LOGIC SECTOR: 09 ]</span>
+            <button class="nav-btn" onclick="location.href='../../../index.html'">[ ABORT ]</button>
+        </header>
+
+        <section class="briefing">
+            <h1>THE DECISION: if Statements</h1>
+            <p>Computers use <span class="logic-gate">if</span> to make choices. It's like saying: "If I am hungry, then eat a snack."</p>
+            
+            <div class="tip-box" style="border-left: 4px solid #ff00ff; padding: 15px; background: #111; margin: 20px 0;">
+                <strong>💡 LOGIC RULE:</strong><br>
+                Use <code>==</code> to check if two things are the same. <br>
+                Don't forget the <code>:</code> (colon) at the end of the if line!
+            </div>
+        </section>
+
+        <section class="code-bay">
+            <h3>🛠️ LANDING SEQUENCE</h3>
+            <p><strong>MISSION:</strong> Check if gear is "DOWN". If it is, print "TOUCHDOWN".</p>
+            
+            <div class="blueprint">
+                <pre>gear = "DOWN"
+if gear == "DOWN":
+    print("TOUCHDOWN")</pre>
+                <button class="nav-btn" onclick="copyBlueprint('gear = \&quot;DOWN\&quot;\nif gear == \&quot;DOWN\&quot;:\n    print(\&quot;TOUCHDOWN\&quot;)')">[ COPY BLUEPRINT ]</button>
+            </div>
+
+            <div class="editor-wrapper">
+                <div id="ghost-code-layer">gear = "DOWN"
+if gear == "DOWN":
+    print("TOUCHDOWN")</div>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()"></textarea>
+            </div>
+
+            <button class="big-btn" id="run-btn" onclick="runLevel9Mission()">INITIATE LANDING 🛬</button>
+        </section>
+
+        <section class="telemetry">
+            <h3>📡 SENSOR DATA</h3>
+            <div id="telemetry-output">Waiting for logic gate...</div>
+        </section>
+
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-blue); margin-top: 20px;" onclick="location.href='level10.html'">
+            PROCEED TO LEVEL 10 ⏭️
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="../../../assets/scripts/main.js"></script>
+    <script src="../../../assets/scripts/engine.js"></script>
+    <script src="../../../assets/scripts/defense.js"></script>
+
+    <script>
+        async function runLevel9Mission() {
+            await runMissionCode();
+            const telemetry = document.getElementById('telemetry-output').innerText;
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (telemetry.includes("TOUCHDOWN")) {
+                nextBtn.style.display = "block";
+                if (typeof missionData !== 'undefined') {
+                    if(!missionData.completedLevels.includes(9)) {
+                        missionData.completedLevels.push(9);
+                    }
+                    saveProgress(); 
+                }
+            }
+        }
+        document.getElementById('run-btn').onclick = runLevel9Mission;
+    </script>
+</body>
+</html>
