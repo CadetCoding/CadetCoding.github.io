@@ -91,29 +91,41 @@ print("ACCESS GRANTED")</div>
     <script src="../../../assets/scripts/engine.js"></script>
 
     <script>
-        /**
-         * LEVEL 8 SPECIAL OVERRIDE
-         * Since input() can be finicky, we force the check.
-         */
         async function runLevel8Mission() {
-            await runMissionCode();
+            const code = document.getElementById('code-input').value;
+            const outputDiv = document.getElementById('telemetry-output');
             
-            const telemetry = document.getElementById('telemetry-output').innerText;
-            const nextBtn = document.getElementById('next-btn');
-            
-            // If the output contains the success message, unlock!
-            if (telemetry.includes("ACCESS GRANTED")) {
-                nextBtn.style.display = "block";
+            // 🛡️ THE FIX: This prevents the I/O Error by giving Python a way to ask questions
+            const inputPatch = `
+import builtins
+def mock_input(prompt=""):
+    import js
+    return js.prompt(prompt)
+builtins.input = mock_input
+`;
+
+            try {
+                // We combine the patch with the cadet's code
+                await pyodide.runPythonAsync(inputPatch + "\n" + code);
                 
-                if (typeof missionData !== 'undefined') {
-                    if(!missionData.completedLevels.includes(8)) {
-                        missionData.completedLevels.push(8);
+                // Get the output (this part depends on your engine.js setup)
+                const telemetry = outputDiv.innerText;
+                const nextBtn = document.getElementById('next-btn');
+                
+                if (telemetry.includes("ACCESS GRANTED")) {
+                    nextBtn.style.display = "block";
+                    if (typeof missionData !== 'undefined') {
+                        if(!missionData.completedLevels.includes(8)) {
+                            missionData.completedLevels.push(8);
+                        }
+                        saveProgress(); 
                     }
-                    saveProgress(); 
                 }
+            } catch (err) {
+                outputDiv.innerHTML = `<span style="color:red">⚠️ SYSTEM ERROR: ${err.message}</span>`;
             }
         }
-        // Bind the new runner to the button
+        
         document.getElementById('run-btn').onclick = runLevel8Mission;
     </script>
 </body>
