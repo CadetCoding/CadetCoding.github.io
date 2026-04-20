@@ -5,12 +5,12 @@
     <title>Mission 07: Fuel Gauge | CadetCode</title>
     <link rel="stylesheet" href="../../../assets/styles/style.css">
     <style>
-        .editor-wrapper { position: relative; background: #050505; border: 2px solid var(--nasa-green); height: 150px; padding: 15px; }
+        .editor-wrapper { position: relative; background: #050505; border: 2px solid var(--nasa-green); height: 150px; padding: 15px; margin: 20px 0; }
         #ghost-code-layer { position: absolute; color: #2a2a2a; font-family: 'Courier New', monospace; font-size: 1.3rem; pointer-events: none; }
         #code-input { position: absolute; width: 95%; height: 85%; background: transparent; border: none; color: var(--nasa-green); font-family: 'Courier New', monospace; font-size: 1.3rem; outline: none; z-index: 2; }
     </style>
 </head>
-<body data-level="7" data-expected="Checking Fuel...">
+<body data-level="7" data-expected="Fuel Updated">
     <div class="terminal-container">
         <header>
             <span class="logo">[ 🛰️ VARIABLE SECTOR: 07 ]</span>
@@ -21,23 +21,24 @@
             <h1>THE GAUGE: Updating Boxes</h1>
             <p>Variables are great because we can change what's inside them! As the rocket flies, the fuel goes down.</p>
             
-            <p><strong>MISSION:</strong> Set the <code>fuel</code> to <code>80</code>. Watch the Telemetry carefully—our custom NASA engine will show you the physical fuel bar!</p>
+            <p><strong>MISSION:</strong> Set the <code>fuel</code> to <code>80</code>, then print "Fuel Updated".</p>
         </section>
 
         <section class="code-bay">
             <div class="blueprint">
                 <span>BLUEPRINT:</span><br>
                 <code>fuel = 80</code><br>
-                <code>print("Checking Fuel...")</code>
+                <code>print("Fuel Updated")</code><br>
+                <button class="nav-btn" onclick="copyBlueprint('fuel = 80\nprint(\'Fuel Updated\')')">[ COPY BLUEPRINT ]</button>
             </div>
 
             <div class="editor-wrapper">
                 <div id="ghost-code-layer">fuel = 80
-print("Checking Fuel...")</div>
-                <textarea id="code-input" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode();}"></textarea>
+print("Fuel Updated")</div>
+                <textarea id="code-input" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runLevel7Mission();}"></textarea>
             </div>
 
-            <button class="big-btn" onclick="runMissionCode()">UPDATE TELEMETRY 🚀</button>
+            <button class="big-btn" id="run-btn" onclick="runLevel7Mission()">UPDATE TELEMETRY 🚀</button>
         </section>
 
         <section class="telemetry">
@@ -45,13 +46,43 @@ print("Checking Fuel...")</div>
             <div id="telemetry-output">Awaiting sensor data...</div>
         </section>
 
-        <button id="next-btn" class="big-btn" style="display:none;" onclick="location.href='level08.html'">
-            NEXT: THE INPUT BOX ⏭️
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-blue); margin-top: 20px;" onclick="location.href='level08.html'">
+            PROCEED TO LEVEL 08 ⏭️
         </button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
     <script src="../../../assets/scripts/main.js"></script>
     <script src="../../../assets/scripts/engine.js"></script>
+
+    <script>
+        /**
+         * LEVEL 7 SPECIAL OVERRIDE
+         * This makes sure the button shows up and the progress is saved.
+         */
+        async function runLevel7Mission() {
+            // 1. Run the normal engine (This updates the fuel bar!)
+            await runMissionCode();
+            
+            const telemetry = document.getElementById('telemetry-output').innerText;
+            const nextBtn = document.getElementById('next-btn');
+            
+            // 2. If "Fuel Updated" appears in the box, show the next button!
+            if (telemetry.includes("Fuel Updated")) {
+                nextBtn.style.display = "block";
+                
+                // 3. Save progress to unlock Level 08 on the dashboard
+                if (typeof missionData !== 'undefined') {
+                    if(!missionData.completedLevels.includes(7)) {
+                        missionData.completedLevels.push(7);
+                    }
+                    missionData.currentLevel = 8;
+                    saveProgress(); 
+                }
+            }
+        }
+        // Bind the button to our fixed logic
+        document.getElementById('run-btn').onclick = runLevel7Mission;
+    </script>
 </body>
 </html>
