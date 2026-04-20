@@ -11,7 +11,7 @@
             background: #050505;
             border: 2px solid var(--nasa-green);
             border-radius: 4px;
-            height: 180px; /* Taller for multi-line code */
+            height: 180px;
             margin: 20px 0; padding: 15px;
         }
         #ghost-code-layer {
@@ -38,13 +38,6 @@
             z-index: 2;
             line-height: 1.4;
         }
-        .ascii-preview {
-            color: #ffcc00;
-            font-family: monospace;
-            background: #222;
-            padding: 10px;
-            display: inline-block;
-        }
     </style>
 </head>
 <body data-level="3" data-expected="^">
@@ -56,10 +49,8 @@
 
         <section class="briefing">
             <h1>THE BLUEPRINT: Multi-Line Art</h1>
-            <p>NASA engineers don't just send words; they send blueprints! In Python, you can use multiple <code>print()</code> commands to draw pictures using text.</p>
+            <p>NASA engineers don't just send words; they send blueprints! In Python, you can use multiple <code>print()</code> commands to draw pictures.</p>
             
-            <p>Every time you start a new <code>print()</code> on a new line, the computer moves to a new line on the screen.</p>
-
             <div class="tip-box" style="border-left: 4px solid #ffcc00; padding: 15px; background: #111; margin: 20px 0;">
                 <strong>🚀 MISSION GOAL:</strong><br>
                 Build a mini-rocket by printing three lines. 
@@ -92,7 +83,7 @@ print("/_ _\\")</div>
             <div id="telemetry-output">Awaiting construction...</div>
         </section>
 
-        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-blue);" onclick="location.href='../math/level04.html'">
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-blue); margin-top: 20px;" onclick="location.href='../math/level04.html'">
             PROCEED TO MATH SECTOR ⏭️
         </button>
     </div>
