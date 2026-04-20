@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 04: The Calculator | CadetCode</title>
+    <link rel="stylesheet" href="../../../assets/styles/style.css">
+    <style>
+        .editor-wrapper {
+            position: relative;
+            background: #050505;
+            border: 2px solid var(--nasa-green);
+            border-radius: 4px;
+            height: 120px;
+            margin: 20px 0; padding: 15px;
+        }
+        #ghost-code-layer {
+            position: absolute;
+            top: 15px; left: 15px;
+            color: #2a2a2a;
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            white-space: pre;
+            pointer-events: none;
+        }
+        #code-input {
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 95%; height: 80%;
+            background: transparent;
+            border: none;
+            color: var(--nasa-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1.4rem;
+            outline: none;
+            resize: none;
+            z-index: 2;
+        }
+        .math-symbol {
+            color: #ffcc00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body data-level="4" data-expected="400">
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[ 🛰️ MATH SECTOR: 04 ]</span>
+            <button class="nav-btn" onclick="location.href='../../../index.html'">[ ABORT ]</button>
+        </header>
+
+        <section class="briefing">
+            <h1>THE CALCULATOR: Addition</h1>
+            <p>Welcome to the Math Sector, Cadet. Rockets are heavy, and we need to calculate exactly how much fuel to load. If we add too much, we're too heavy. Too little, and we're stranded!</p>
+            
+            <p>In Python, numbers are <strong>"Naked."</strong> You do NOT use quotes <code>" "</code> for math. If you put quotes around 2+2, the computer thinks it's a word. If you leave them off, it does the math!</p>
+
+            <div class="tip-box" style="border-left: 4px solid #ffcc00; padding: 15px; background: #111; margin: 20px 0;">
+                <strong>🔢 THE NAKED RULE:</strong><br>
+                Math = No Quotes.<br>
+                Words = Quotes.<br>
+                <code>print(5 + 5)</code> will show <span class="math-symbol">10</span>.
+            </div>
+        </section>
+
+        <section class="code-bay">
+            <h3>🛠️ FUEL CALCULATION</h3>
+            <p><strong>MISSION:</strong> Add 150 liters of fuel to 250 liters of fuel.</p>
+            
+            <div class="blueprint">
+                <span>BLUEPRINT:</span> <code>print(150 + 250)</code>
+                <button class="nav-btn" onclick="copyBlueprint('print(150 + 250)')">[ COPY ]</button>
+            </div>
+
+            <div class="editor-wrapper">
+                <div id="ghost-code-layer">print(150 + 250)</div>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode();}"></textarea>
+            </div>
+
+            <button class="big-btn" onclick="runMissionCode()">CALCULATE FUEL 🚀</button>
+        </section>
+
+        <section class="telemetry">
+            <h3>📡 NASA TELEMETRY</h3>
+            <div id="telemetry-output">Awaiting calculation...</div>
+        </section>
+
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-blue);" onclick="location.href='level05.html'">
+            PROCEED TO MISSION 05 ⏭️
+        </button>
+
+        <hr class="divider">
+
+        <section class="hardware-hub">
+            <h3>🤖 ROBOTICS HUB</h3>
+            <p>How do robots use addition?</p>
+            <ul>
+                <li><strong>Counting:</strong> A robot uses addition to count how many items it has picked up. <code>items = items + 1</code>.</li>
+                <li><strong>Sensors:</strong> If a robot has two battery packs, it adds them together to see the total power.</li>
+            </ul>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="../../../assets/scripts/main.js"></script>
+    <script src="../../../assets/scripts/engine.js"></script>
+</body>
+</html>
