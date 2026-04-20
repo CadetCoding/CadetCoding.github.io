@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 06: The Storage Box | CadetCode</title>
+    <link rel="stylesheet" href="../../../assets/styles/style.css">
+    <style>
+        .editor-wrapper {
+            position: relative;
+            background: #050505;
+            border: 2px solid var(--nasa-green);
+            border-radius: 4px;
+            height: 150px;
+            margin: 20px 0; padding: 15px;
+        }
+        #ghost-code-layer {
+            position: absolute;
+            top: 15px; left: 15px;
+            color: #2a2a2a;
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            white-space: pre;
+            pointer-events: none;
+        }
+        #code-input {
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 95%; height: 85%;
+            background: transparent;
+            border: none;
+            color: var(--nasa-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1.3rem;
+            outline: none;
+            resize: none;
+            z-index: 2;
+        }
+        .box-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .variable-box {
+            border: 2px dashed var(--nasa-blue);
+            padding: 10px;
+            text-align: center;
+            width: 120px;
+        }
+    </style>
+</head>
+<body data-level="6" data-expected="100">
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[ 🛰️ VARIABLE SECTOR: 06 ]</span>
+            <button class="nav-btn" onclick="location.href='../../../index.html'">[ ABORT ]</button>
+        </header>
+
+        <section class="briefing">
+            <h1>THE STORAGE BOX: Variables</h1>
+            <p>On a long space mission, we need to keep track of our supplies. Instead of typing the same number over and over, we put that number into a <strong>Variable</strong>.</p>
+            
+            <p>Think of a variable like a <strong>Cardboard Box</strong>. You write a name on the outside (like <code>fuel</code>) and put a value inside (like <code>100</code>).</p>
+
+            <div class="box-container">
+                <div class="variable-box">
+                    <small>Name Tag:</small><br>
+                    <strong>fuel</strong>
+                    <hr>
+                    <small>Inside:</small><br>
+                    <strong>100</strong>
+                </div>
+            </div>
+
+            <div class="tip-box" style="border-left: 4px solid var(--nasa-blue); padding: 15px; background: #111;">
+                <strong>📦 THE ASSIGNMENT RULE:</strong><br>
+                In Python, the <code>=</code> sign doesn't mean "equals." It means <strong>"Put this in the box!"</strong>
+                <br><br>
+                <code>fuel = 100</code> means "Put the number 100 into the box named fuel."
+            </div>
+        </section>
+
+        <section class="code-bay">
+            <h3>🛠️ MISSION CONTROL</h3>
+            <p><strong>TASK:</strong> Create a variable named <code>fuel</code>, set it to <code>100</code>, then print the variable!</p>
+            
+            <div class="blueprint">
+                <span>BLUEPRINT:</span><br>
+                <code>fuel = 100</code><br>
+                <code>print(fuel)</code>
+                <button class="nav-btn" onclick="copyBlueprint('fuel = 100\nprint(fuel)')">[ COPY ]</button>
+            </div>
+
+            <div class="editor-wrapper">
+                <div id="ghost-code-layer">fuel = 100
+print(fuel)</div>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode();}"></textarea>
+            </div>
+
+            <button class="big-btn" onclick="runMissionCode()">FILL TANKS 🚀</button>
+        </section>
+
+        <section class="telemetry">
+            <h3>📡 NASA TELEMETRY</h3>
+            <div id="telemetry-output">Awaiting fuel data...</div>
+        </section>
+
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-blue);" onclick="location.href='level07.html'">
+            PROCEED TO MISSION 07 ⏭️
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="../../../assets/scripts/main.js"></script>
+    <script src="../../../assets/scripts/engine.js"></script>
+</body>
+</html>
