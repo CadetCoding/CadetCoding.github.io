@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 12: Final Launch Check | CadetCode</title>
+    <link rel="stylesheet" href="../../../assets/styles/style.css">
+    <style>
+        .editor-wrapper {
+            position: relative;
+            background: #050505;
+            border: 2px solid var(--nasa-green);
+            border-radius: 4px;
+            height: 260px;
+            margin: 20px 0; padding: 15px;
+        }
+        #ghost-code-layer {
+            position: absolute;
+            top: 15px; left: 15px;
+            color: #2a2a2a;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            white-space: pre;
+            pointer-events: none;
+            line-height: 1.5;
+        }
+        #code-input {
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 95%; height: 90%;
+            background: transparent;
+            border: none;
+            color: var(--nasa-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            outline: none;
+            resize: none;
+            z-index: 2;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body data-level="12" data-expected="LIFT OFF">
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[ 🧠 LOGIC SECTOR: 12 ]</span>
+            <button class="nav-btn" onclick="location.href='../../../index.html'">[ ABORT ]</button>
+        </header>
+
+        <section class="briefing">
+            <h1>FINAL CHECK: Logic Mastery</h1>
+            <p>It all comes down to this! We need to check the fuel before the engines ignite.</p>
+            
+            <div class="tip-box" style="border-left: 4px solid #ff00ff; padding: 15px; background: #111; margin: 20px 0;">
+                <strong>🚀 MISSION GOAL:</strong><br>
+                If <code>fuel</code> is greater than <code>50</code>, print "LIFT OFF". <br>
+                Otherwise, print "ABORT".
+            </div>
+        </section>
+
+        <section class="code-bay">
+            <h3>🛠️ IGNITION COMPUTER</h3>
+            
+            <div class="blueprint">
+                <pre>fuel = 100
+if fuel > 50:
+    print("LIFT OFF")
+else:
+    print("ABORT")</pre>
+                <button class="nav-btn" onclick="copyBlueprint('fuel = 100\nif fuel > 50:\n    print(\&quot;LIFT OFF\&quot;)\nelse:\n    print(\&quot;ABORT\&quot;)')">[ COPY BLUEPRINT ]</button>
+            </div>
+
+            <div class="editor-wrapper">
+                <div id="ghost-code-layer">fuel = 100
+if fuel > 50:
+    print("LIFT OFF")
+else:
+    print("ABORT")</div>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()"></textarea>
+            </div>
+
+            <button class="big-btn" id="run-btn" onclick="runLevel12Mission()">IGNITE ENGINES 🔥</button>
+        </section>
+
+        <section class="telemetry">
+            <h3>📡 LAUNCH PAD STATUS</h3>
+            <div id="telemetry-output">Awaiting final command...</div>
+        </section>
+
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-green); margin-top: 20px;" onclick="location.href='../../../index.html'">
+            SECTOR COMPLETE: RETURN TO BASE 🏆
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="../../../assets/scripts/main.js"></script>
+    <script src="../../../assets/scripts/engine.js"></script>
+    <script src="../../../assets/scripts/defense.js"></script>
+
+    <script>
+        async function runLevel12Mission() {
+            await runMissionCode();
+            const telemetry = document.getElementById('telemetry-output').innerText;
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (telemetry.includes("LIFT OFF")) {
+                nextBtn.style.display = "block";
+                if (typeof missionData !== 'undefined') {
+                    if(!missionData.completedLevels.includes(12)) {
+                        missionData.completedLevels.push(12);
+                    }
+                    saveProgress(); 
+                }
+            }
+        }
+        document.getElementById('run-btn').onclick = runLevel12Mission;
+    </script>
+</body>
+</html>
