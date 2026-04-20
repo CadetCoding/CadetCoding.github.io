@@ -1,6 +1,6 @@
 // 🚀 CADETCODE ENGINE - The Brain of the Mission
 let pyodideInstance = null;
-let errorCount = 0; // Tracks mistakes for the Hint System
+let errorCount = 0;
 
 /**
  * 1. INITIALIZE PYTHON
@@ -12,21 +12,24 @@ async function bootPython() {
     telemetry.innerHTML = "<span class='blink'>🛰️</span> INITIALIZING MISSION CONTROL...";
 
     try {
-        // Load Pyodide (Using CDN for stability, point to /.libraries/ for offline)
         pyodideInstance = await loadPyodide();
         telemetry.innerText = "✅ SYSTEMS ONLINE. READY FOR COMMANDS.";
     } catch (err) {
         telemetry.innerText = "❌ CRITICAL ERROR: FAILED TO BOOT PYTHON.";
-        console.error(err);
     }
 }
 
 /**
- * 2. RUN CADET CODE
+ * 2. UNIVERSAL RUNNER
+ * No parameters needed! It pulls "expected" data from the HTML body.
  */
-async function runMissionCode(expectedOutput = null) {
-    const code = document.getElementById('code-input').value;
+async function runMissionCode() {
+    const inputArea = document.getElementById('code-input');
     const telemetry = document.getElementById('telemetry-output');
+    
+    // Get the requirement from the body tag (data-expected="Hello Mars")
+    const expectedOutput = document.body.dataset.expected;
+    const code = inputArea.value;
     
     if (!pyodideInstance) {
         telemetry.innerText = "⏳ STILL BOOTING... PLEASE WAIT.";
@@ -34,33 +37,35 @@ async function runMissionCode(expectedOutput = null) {
     }
 
     try {
-        // Capture Python Output
+        // Redirect stdout to capture prints
         pyodideInstance.runPython(`
-            import sys
-            import io
+            import sys, io
             sys.stdout = io.StringIO()
         `);
 
-        // Execute Code
+        // Execute Cadet Code
         await pyodideInstance.runPythonAsync(code);
 
-        // Get Output
-        const stdout = pyodideInstance.runPython("sys.stdout.getvalue()");
+        // Get the output and clean it up
+        const stdout = pyodideInstance.runPython("sys.stdout.getvalue()").trim();
         
-        // --- VISUALIZER LOGIC ---
-        // If they created a variable called 'fuel', show a progress bar
+        // --- VISUALIZER LOGIC (Fuel Jars, etc.) ---
         let visualData = "";
         if (code.includes("fuel")) {
             try {
                 let fuelVal = pyodideInstance.globals.get('fuel');
-                visualData = `\n[FUEL LEVEL: ${"█".repeat(fuelVal/10)}${"░".repeat(10-(fuelVal/10))}] ${fuelVal}%`;
+                let bar = "█".repeat(Math.min(10, Math.max(0, fuelVal/10)));
+                let empty = "░".repeat(Math.max(0, 10 - bar.length));
+                visualData = `\n[FUEL LEVEL: ${bar}${empty}] ${fuelVal}%`;
             } catch(e) {}
         }
 
+        // Show the output (Sandbox Mode: any code works and shows results here!)
         telemetry.innerText = (stdout || "🚀 COMMAND EXECUTED") + visualData;
 
-        // Success Check
-        if (expectedOutput && stdout.trim() === expectedOutput.trim()) {
+        // --- SUCCESS CHECK ---
+        // Only triggers if they match the hidden mission requirement
+        if (expectedOutput && stdout === expectedOutput.trim()) {
             errorCount = 0;
             triggerSuccess();
         }
@@ -72,20 +77,16 @@ async function runMissionCode(expectedOutput = null) {
 }
 
 /**
- * 3. ERROR TRANSLATOR & HINT SYSTEM
+ * 3. ERROR TRANSLATOR
  */
 function handleMissionErrors(err, telemetry) {
     let errorMsg = err.message;
-    let hint = "";
-
-    if (errorCount >= 3) {
-        hint = "\n\n💡 MISSION CONTROL HINT: Remember the 'Quote Sandwich' rule. Check your starting and ending \" symbols!";
-    }
+    let hint = (errorCount >= 3) ? "\n\n💡 HINT: Check your quotes \" \" and parentheses ( )!" : "";
 
     if (errorMsg.includes("SyntaxError")) {
-        telemetry.innerText = "⚠️ GLITCH: Syntax Error! Check your 'Quotes' or 'Parentheses'." + hint;
+        telemetry.innerText = "⚠️ GLITCH: Syntax Error! Check your 'Quotes'." + hint;
     } else if (errorMsg.includes("NameError")) {
-        telemetry.innerText = "⚠️ SENSOR UNKNOWN: Did you misspell a variable or command?" + hint;
+        telemetry.innerText = "⚠️ SENSOR UNKNOWN: Did you misspell something?" + hint;
     } else {
         telemetry.innerText = "⚠️ SYSTEM ERROR: " + errorMsg.split('at');
     }
@@ -97,9 +98,7 @@ function handleMissionErrors(err, telemetry) {
 function handleGhostCode() {
     const input = document.getElementById('code-input');
     const ghost = document.getElementById('ghost-code-layer');
-    
-    // Hide ghost text if user starts typing
-    ghost.style.opacity = input.value.length > 0 ? "0" : "1";
+    if(ghost) ghost.style.opacity = input.value.length > 0 ? "0" : "1";
 }
 
 /**
@@ -109,26 +108,31 @@ function triggerSuccess() {
     const nextBtn = document.getElementById('next-btn');
     const telemetry = document.getElementById('telemetry-output');
     
-    telemetry.innerHTML += "\n\n⭐ MISSION ACCOMPLISHED! NEXT MODULE UNLOCKED.";
-    if(nextBtn) nextBtn.style.display = "block";
-    
-    // Save Progress via main.js
-    const currentLvl = parseInt(document.body.dataset.level);
-    if (typeof missionData !== 'undefined') {
-        if(!missionData.completedLevels.includes(currentLvl)) {
-            missionData.completedLevels.push(currentLvl);
+    if (!telemetry.innerHTML.includes("⭐")) {
+        telemetry.innerHTML += "\n\n⭐ MISSION ACCOMPLISHED! NEXT MODULE UNLOCKED.";
+        if(nextBtn) nextBtn.style.display = "block";
+        
+        const currentLvl = parseInt(document.body.dataset.level);
+        if (typeof missionData !== 'undefined') {
+            if(!missionData.completedLevels.includes(currentLvl)) {
+                missionData.completedLevels.push(currentLvl);
+            }
+            missionData.currentLevel = currentLvl + 1;
+            saveProgress(); 
         }
-        missionData.currentLevel = currentLvl + 1;
-        saveProgress(); 
     }
 }
 
-// 6. HELPER: COPY BLUEPRINT
+/**
+ * 6. HELPER: COPY BLUEPRINT
+ */
 function copyBlueprint(text) {
     const input = document.getElementById('code-input');
-    input.value = text;
-    handleGhostCode();
-    document.getElementById('telemetry-output').innerText = "📋 BLUEPRINT LOADED INTO CONSOLE.";
+    if(input) {
+        input.value = text;
+        handleGhostCode();
+        document.getElementById('telemetry-output').innerText = "📋 BLUEPRINT LOADED. PRESS RUN!";
+    }
 }
 
 bootPython();
