@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission 11: The Speed Limit | CadetCode</title>
+    <link rel="stylesheet" href="../../../assets/styles/style.css">
+    <style>
+        .editor-wrapper {
+            position: relative;
+            background: #050505;
+            border: 2px solid var(--nasa-green);
+            border-radius: 4px;
+            height: 250px;
+            margin: 20px 0; padding: 15px;
+        }
+        #ghost-code-layer {
+            position: absolute;
+            top: 15px; left: 15px;
+            color: #2a2a2a;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            white-space: pre;
+            pointer-events: none;
+            line-height: 1.5;
+        }
+        #code-input {
+            position: absolute;
+            top: 15px; left: 15px;
+            width: 95%; height: 90%;
+            background: transparent;
+            border: none;
+            color: var(--nasa-green);
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            outline: none;
+            resize: none;
+            z-index: 2;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body data-level="11" data-expected="SLOW DOWN">
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[ 🧠 LOGIC SECTOR: 11 ]</span>
+            <button class="nav-btn" onclick="location.href='../../../index.html'">[ ABORT ]</button>
+        </header>
+
+        <section class="briefing">
+            <h1>SPEED LIMIT: Greater Than (>)</h1>
+            <p>Sometimes we don't need things to be exactly equal. We use <code>></code> to check if a number is "Greater Than" another number.</p>
+            
+            <div class="tip-box" style="border-left: 4px solid #ff00ff; padding: 15px; background: #111; margin: 20px 0;">
+                <strong>💡 MATH LOGIC:</strong><br>
+                <code>speed > 1000</code> means "Is the speed bigger than 1000?"
+            </div>
+        </section>
+
+        <section class="code-bay">
+            <h3>🛠️ RADAR CHECK</h3>
+            <p><strong>MISSION:</strong> Set <code>speed</code> to <code>1200</code>. If it is over <code>1000</code>, print "SLOW DOWN".</p>
+            
+            <div class="blueprint">
+                <pre>speed = 1200
+if speed > 1000:
+    print("SLOW DOWN")
+else:
+    print("STABLE")</pre>
+                <button class="nav-btn" onclick="copyBlueprint('speed = 1200\nif speed > 1000:\n    print(\&quot;SLOW DOWN\&quot;)\nelse:\n    print(\&quot;STABLE\&quot;)')">[ COPY BLUEPRINT ]</button>
+            </div>
+
+            <div class="editor-wrapper">
+                <div id="ghost-code-layer">speed = 1200
+if speed > 1000:
+    print("SLOW DOWN")
+else:
+    print("STABLE")</div>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()"></textarea>
+            </div>
+
+            <button class="big-btn" id="run-btn" onclick="runLevel11Mission()">CHECK RADAR 📡</button>
+        </section>
+
+        <section class="telemetry">
+            <h3>📡 VELOCITY SENSOR</h3>
+            <div id="telemetry-output">Waiting for radar pulse...</div>
+        </section>
+
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-blue); margin-top: 20px;" onclick="location.href='level12.html'">
+            PROCEED TO LEVEL 12 ⏭️
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="../../../assets/scripts/main.js"></script>
+    <script src="../../../assets/scripts/engine.js"></script>
+    <script src="../../../assets/scripts/defense.js"></script>
+
+    <script>
+        async function runLevel11Mission() {
+            await runMissionCode();
+            const telemetry = document.getElementById('telemetry-output').innerText;
+            const nextBtn = document.getElementById('next-btn');
+            
+            if (telemetry.includes("SLOW DOWN")) {
+                nextBtn.style.display = "block";
+                if (typeof missionData !== 'undefined') {
+                    if(!missionData.completedLevels.includes(11)) {
+                        missionData.completedLevels.push(11);
+                    }
+                    saveProgress(); 
+                }
+            }
+        }
+        document.getElementById('run-btn').onclick = runLevel11Mission;
+    </script>
+</body>
+</html>
