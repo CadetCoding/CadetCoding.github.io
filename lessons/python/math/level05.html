@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mission 05: The Multiplier | CadetCode</title>
+    <link rel="stylesheet" href="../../../assets/styles/style.css">
+    <style>
+        /* Shared editor styles */
+        .editor-wrapper { position: relative; background: #050505; border: 2px solid var(--nasa-green); height: 120px; padding: 15px; }
+        #ghost-code-layer { position: absolute; color: #2a2a2a; font-family: 'Courier New', monospace; font-size: 1.4rem; pointer-events: none; }
+        #code-input { position: absolute; width: 95%; height: 80%; background: transparent; border: none; color: var(--nasa-green); font-family: 'Courier New', monospace; font-size: 1.4rem; outline: none; z-index: 2; }
+    </style>
+</head>
+<body data-level="5" data-expected="50">
+    <div class="terminal-container">
+        <header>
+            <span class="logo">[ 🛰️ MATH SECTOR: 05 ]</span>
+            <button class="nav-btn" onclick="location.href='../../../index.html'">[ ABORT ]</button>
+        </header>
+
+        <section class="briefing">
+            <h1>THE MULTIPLIER: Stars for Math</h1>
+            <p>In the NASA control room, we don't use an 'X' for multiplication because it looks too much like the letter X! Instead, we use the <strong>Magic Star</strong> <span style="color:#ffcc00;">*</span>.</p>
+            
+            <div class="tip-box" style="border-left: 4px solid #ffcc00; padding: 10px; background: #111;">
+                <strong>⌨️ FIND THE STAR:</strong><br>
+                On a keyboard, hold <span class="key-tag">Shift</span> + <span class="key-tag">8</span>. On an iPad, look in the symbol menu!
+            </div>
+        </section>
+
+        <section class="code-bay">
+            <p><strong>MISSION:</strong> We have 5 engines. Each engine needs 10 bolts. Multiply 5 by 10.</p>
+            <div class="blueprint">
+                <span>BLUEPRINT:</span> <code>print(5 * 10)</code>
+                <button class="nav-btn" onclick="copyBlueprint('print(5 * 10)')">[ COPY ]</button>
+            </div>
+
+            <div class="editor-wrapper">
+                <div id="ghost-code-layer">print(5 * 10)</div>
+                <textarea id="code-input" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode();}"></textarea>
+            </div>
+
+            <button class="big-btn" onclick="runMissionCode()">MULTIPLY 🚀</button>
+        </section>
+
+        <section class="telemetry">
+            <div id="telemetry-output">Awaiting calculation...</div>
+        </section>
+
+        <button id="next-btn" class="big-btn" style="display:none;" onclick="location.href='../variables/level06.html'">
+            ENTER VARIABLE SECTOR ⏭️
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
+    <script src="../../../assets/scripts/main.js"></script>
+    <script src="../../../assets/scripts/engine.js"></script>
+</body>
+</html>
