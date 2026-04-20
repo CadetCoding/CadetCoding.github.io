@@ -49,33 +49,31 @@
             <h1>THE UPLINK: input()</h1>
             <p>To launch the rocket, we need the Pilot's name. We use the <code>input()</code> function to ask a question and wait for an answer.</p>
             
-            <p>Whatever the Cadet types back gets stored inside our variable box!</p>
-
             <div class="tip-box" style="border-left: 4px solid var(--nasa-blue); padding: 15px; background: #111;">
                 <strong>📡 HOW IT WORKS:</strong><br>
-                <code>name = input("Who is the Pilot?")</code><br>
-                This stops the program, waits for you to type, and saves your name into the <code>name</code> box.
+                <code>pilot = input("Name?")</code><br>
+                The computer stops and waits for you to type!
             </div>
         </section>
 
         <section class="code-bay">
             <h3>🛠️ PILOT REGISTRATION</h3>
-            <p><strong>MISSION:</strong> Ask for the pilot's name, then print "ACCESS GRANTED".</p>
+            <p><strong>MISSION:</strong> Ask for a name, then print "ACCESS GRANTED".</p>
             
             <div class="blueprint">
                 <span>BLUEPRINT:</span><br>
-                <code>pilot = input("Enter Name: ")</code><br>
+                <code>pilot = input("Name: ")</code><br>
                 <code>print("ACCESS GRANTED")</code>
-                <button class="nav-btn" onclick="copyBlueprint('pilot = input(\&quot;Enter Name: \&quot;)\nprint(\&quot;ACCESS GRANTED\&quot;)')">[ COPY ]</button>
+                <button class="nav-btn" onclick="copyBlueprint('pilot = input(\'Name: \')\nprint(\'ACCESS GRANTED\')')">[ COPY BLUEPRINT ]</button>
             </div>
 
             <div class="editor-wrapper">
-                <div id="ghost-code-layer">pilot = input("Enter Name: ")
+                <div id="ghost-code-layer">pilot = input("Name: ")
 print("ACCESS GRANTED")</div>
-                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode();}"></textarea>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runLevel8Mission();}"></textarea>
             </div>
 
-            <button class="big-btn" onclick="runMissionCode()">START UPLINK 🚀</button>
+            <button class="big-btn" id="run-btn" onclick="runLevel8Mission()">START UPLINK 🚀</button>
         </section>
 
         <section class="telemetry">
@@ -83,7 +81,7 @@ print("ACCESS GRANTED")</div>
             <div id="telemetry-output">Awaiting Pilot ID...</div>
         </section>
 
-        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-green);" onclick="location.href='../../../index.html'">
+        <button id="next-btn" class="big-btn" style="display:none; background: var(--nasa-green); margin-top:20px;" onclick="location.href='../../../index.html'">
             SECTOR COMPLETE: RETURN TO BASE 🏆
         </button>
     </div>
@@ -91,5 +89,32 @@ print("ACCESS GRANTED")</div>
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
     <script src="../../../assets/scripts/main.js"></script>
     <script src="../../../assets/scripts/engine.js"></script>
+
+    <script>
+        /**
+         * LEVEL 8 SPECIAL OVERRIDE
+         * Since input() can be finicky, we force the check.
+         */
+        async function runLevel8Mission() {
+            await runMissionCode();
+            
+            const telemetry = document.getElementById('telemetry-output').innerText;
+            const nextBtn = document.getElementById('next-btn');
+            
+            // If the output contains the success message, unlock!
+            if (telemetry.includes("ACCESS GRANTED")) {
+                nextBtn.style.display = "block";
+                
+                if (typeof missionData !== 'undefined') {
+                    if(!missionData.completedLevels.includes(8)) {
+                        missionData.completedLevels.push(8);
+                    }
+                    saveProgress(); 
+                }
+            }
+        }
+        // Bind the new runner to the button
+        document.getElementById('run-btn').onclick = runLevel8Mission;
+    </script>
 </body>
 </html>
