@@ -6,15 +6,13 @@
     <title>Mission 02: The Joiner | CadetCode</title>
     <link rel="stylesheet" href="../../../assets/styles/style.css">
     <style>
-        /* Re-using our specialized editor styles */
         .editor-wrapper {
             position: relative;
             background: #050505;
             border: 2px solid var(--nasa-green);
             border-radius: 4px;
             height: 120px;
-            margin: 20px 0;
-            padding: 15px;
+            margin: 20px 0; padding: 15px;
         }
         #ghost-code-layer {
             position: absolute;
@@ -45,7 +43,7 @@
         }
     </style>
 </head>
-<body data-level="2">
+<body data-level="2" data-expected="Go Mars">
     <div class="terminal-container">
         <header>
             <span class="logo">[ 🛰️ PYTHON MODULE: 02 ]</span>
@@ -54,29 +52,21 @@
 
         <section class="briefing">
             <h1>THE JOINER: String Concatenation</h1>
-            <p>Great work on Mission 01! But sometimes, one megaphone isn't enough. You might have two different words that need to be glued together to make a full sentence.</p>
+            <p>Great work on Mission 01! Sometimes you need to glue two different words together to make a full sentence.</p>
             
-            <p>In Python, we use the <span class="glue-visual">+</span> symbol. For numbers, it does math. But for words (Strings), it acts like <strong>Space-Glue</strong>!</p>
+            <p>In Python, we use the <span class="glue-visual">+</span> symbol. For words, it acts like <strong>Space-Glue</strong>!</p>
 
             <div class="tip-box" style="border-left: 4px solid var(--nasa-blue); padding: 15px; background: #111; margin: 20px 0;">
                 <strong>⚠️ THE HIDDEN SPACE TRAP:</strong><br>
-                Python is very literal. If you glue <code>"Rocket" + "Ship"</code>, you get <code>"RocketShip"</code>. 
-                <br><br>
-                If you want a space, you have to add it yourself! Either <code>"Rocket " + "Ship"</code> or <code>"Rocket" + " " + "Ship"</code>.
+                If you glue <code>"Rocket" + "Ship"</code>, you get <code>"RocketShip"</code>. Remember to add your own space!
             </div>
         </section>
 
         <section class="input-guides">
             <h3>⌨️ INPUT NAVIGATION</h3>
             <div class="keyboard-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #111; padding: 10px;">
-                <div>
-                    <strong>LAPTOP:</strong><br>
-                    Hold <span class="key-tag">Shift</span> + <span class="key-tag">=</span> to make a <span class="key-tag">+</span>.
-                </div>
-                <div>
-                    <strong>IPAD / TOUCH:</strong><br>
-                    Found in the <span class="key-tag">.?123</span> menu next to the numbers.
-                </div>
+                <div><strong>LAPTOP:</strong> <span class="key-tag">Shift</span> + <span class="key-tag">=</span></div>
+                <div><strong>IPAD / TOUCH:</strong> Found in <span class="key-tag">.?123</span></div>
             </div>
         </section>
 
@@ -84,7 +74,7 @@
 
         <section class="code-bay">
             <h3>🛠️ COMMAND CONSOLE</h3>
-            <p><strong>MISSION:</strong> Glue "Go" and "Mars" together with a space in between!</p>
+            <p><strong>MISSION:</strong> Glue "Go" and "Mars" together with a space!</p>
             
             <div class="blueprint">
                 <span>BLUEPRINT:</span> <code>print("Go " + "Mars")</code>
@@ -93,10 +83,10 @@
 
             <div class="editor-wrapper">
                 <div id="ghost-code-layer">print("Go " + "Mars")</div>
-                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode('Go Mars');}"></textarea>
+                <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()" onkeydown="if(event.key==='Enter'){event.preventDefault(); runMissionCode();}"></textarea>
             </div>
 
-            <button class="big-btn" onclick="runMissionCode('Go Mars')">GLUE & LAUNCH 🚀</button>
+            <button class="big-btn" onclick="runMissionCode()">GLUE & LAUNCH 🚀</button>
         </section>
 
         <section class="telemetry">
@@ -112,11 +102,7 @@
 
         <section class="hardware-hub">
             <h3>🤖 ROBOTICS HUB</h3>
-            <p>Why do robots need "Word Glue"?</p>
-            <ul>
-                <li><strong>Sensors:</strong> A robot might take the word <code>"Distance: "</code> and glue it to the number from a laser sensor to show <code>"Distance: 10cm"</code>.</li>
-                <li><strong>NASA:</strong> Mission Control glues <code>"Status: "</code> + <code>"Fuel Low"</code> to create warning alerts for astronauts.</li>
-            </ul>
+            <p><strong>NASA:</strong> Mission Control glues <code>"Status: "</code> + <code>"Fuel Low"</code> to create warning alerts for astronauts.</p>
         </section>
     </div>
 
