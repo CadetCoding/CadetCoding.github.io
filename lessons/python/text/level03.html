@@ -52,15 +52,11 @@
             <p>NASA engineers don't just send words; they send blueprints! In Python, you can use multiple <code>print()</code> commands to draw pictures.</p>
             
             <div class="tip-box" style="border-left: 4px solid #ffcc00; padding: 15px; background: #111; margin: 20px 0;">
-                <strong>🚀 MISSION GOAL:</strong><br>
-                Build a mini-rocket by printing three lines. 
+                <strong>🚀 MISSION GOAL:</strong> Build a mini-rocket!
             </div>
         </section>
 
         <section class="code-bay">
-            <h3>🛠️ COMMAND CONSOLE</h3>
-            <p>Type the blueprint exactly to build the rocket:</p>
-            
             <div class="blueprint">
                 <pre>print("  ^  ")
 print(" | | ")
@@ -75,7 +71,7 @@ print("/_ _\\")</div>
                 <textarea id="code-input" spellcheck="false" oninput="handleGhostCode()"></textarea>
             </div>
 
-            <button class="big-btn" onclick="runMissionCode()">BUILD ROCKET 🚀</button>
+            <button class="big-btn" id="run-btn" onclick="runLevel3Mission()">BUILD ROCKET 🚀</button>
         </section>
 
         <section class="telemetry">
@@ -91,5 +87,36 @@ print("/_ _\\")</div>
     <script src="https://cdn.jsdelivr.net/pyodide/v0.25.0/full/pyodide.js"></script>
     <script src="../../../assets/scripts/main.js"></script>
     <script src="../../../assets/scripts/engine.js"></script>
+
+    <script>
+        /** * LEVEL 3 SPECIAL OVERRIDE
+         * This forces the "Next" button to show if the nose of the rocket (^) is found.
+         */
+        async function runLevel3Mission() {
+            // First, run the normal engine logic
+            await runMissionCode();
+            
+            const telemetry = document.getElementById('telemetry-output').innerText;
+            const nextBtn = document.getElementById('next-btn');
+            
+            // If the rocket nose is in the output, bypass the strict check
+            if (telemetry.includes("^")) {
+                console.log("Rocket detected! Manual unlock triggered.");
+                nextBtn.style.display = "block";
+                
+                // Save progress so Level 4 unlocks on the dashboard
+                if (typeof missionData !== 'undefined') {
+                    if(!missionData.completedLevels.includes(3)) {
+                        missionData.completedLevels.push(3);
+                    }
+                    missionData.currentLevel = 4;
+                    saveProgress(); 
+                }
+            }
+        }
+        
+        // Point the main button to our new check
+        document.getElementById('run-btn').onclick = runLevel3Mission;
+    </script>
 </body>
 </html>
